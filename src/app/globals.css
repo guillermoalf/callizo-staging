@@ -1,0 +1,210 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ————————————————————————————————————————————————
+   Callizo design tokens — warm paper / charcoal / gold.
+   Never pure black or white. Values lifted from the
+   designer's mockup (reference/Callizo Aromas - Homepage.html).
+   ———————————————————————————————————————————————— */
+:root {
+  /* warm neutrals */
+  --paper: oklch(0.972 0.01 82); /* off-white, warm */
+  --paper-2: oklch(0.945 0.012 80); /* card */
+  --paper-3: oklch(0.915 0.014 78); /* divider / hover */
+  --ink: oklch(0.205 0.012 60); /* deep charcoal */
+  --ink-2: oklch(0.35 0.01 60); /* muted */
+  --ink-3: oklch(0.52 0.008 65); /* hint */
+  --rule: oklch(0.835 0.012 75);
+
+  /* warm gold */
+  --gold: oklch(0.74 0.13 75);
+  --gold-deep: oklch(0.64 0.135 65);
+  --gold-soft: oklch(0.92 0.045 85);
+
+  /* division accents — shared chroma/lightness, varied hue.
+     Consumed as a per-card inline `--hue` (see note below). */
+  --hue-flavors: 25;
+  --hue-fragrances: 310;
+  --hue-pets: 60;
+  --hue-zoo: 140;
+  --hue-ingredients: 210;
+}
+
+/* Register tokens with Tailwind so utilities resolve:
+   bg-paper, text-ink, border-rule, text-gold, font-serif, etc.
+   Fonts come from next/font variables set in layout.tsx. */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-paper-3: var(--paper-3);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-rule: var(--rule);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-gold-soft: var(--gold-soft);
+
+  --font-serif: var(--font-instrument-serif), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-manrope), "Söhne", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+
+  /* —— Callizo.OS admin sub-app (namespaced; scoped to /admin, does not
+     touch the marketing site). Inter is loaded in src/app/admin/layout.tsx. —— */
+  --font-inter: var(--font-inter-admin), ui-sans-serif, system-ui, sans-serif;
+  --color-admin-blue: #378add;
+  --color-admin-blue-50: #eef5fc;
+  --color-admin-blue-100: #dfecf9;
+  --color-admin-green: #1d9e75;
+  --color-admin-green-50: #e7f5f0;
+  --color-admin-amber: #ba7517;
+  --color-admin-amber-50: #fbf2e6;
+  --color-admin-red: #c64646;
+  --color-admin-red-50: #fbecec;
+  --color-admin-purple: #7f77dd;
+  --color-admin-purple-50: #efedfb;
+  --color-admin-gray-50: #fafafa;
+  --color-admin-gray-100: #f4f4f3;
+  --color-admin-gray-200: #ececea;
+  --color-admin-gray-300: #d9d9d6;
+  --color-admin-gray-400: #a8a8a3;
+  --color-admin-gray-500: #76766f;
+  --color-admin-gray-600: #54544e;
+  --color-admin-gray-700: #36362f;
+  --color-admin-gray-800: #25251f;
+  --color-admin-ink: #1c1c17;
+  --color-admin-border: rgba(20, 20, 16, 0.08);
+  --color-admin-border-strong: rgba(20, 20, 16, 0.14);
+  --color-admin-bg: #f7f7f4;
+  --color-admin-card: #ffffff;
+  --color-admin-brand-ink: #2c2c2a;
+  --color-admin-brand-amber: #c8960c;
+
+  /* map-pin halo + routing-dot pulses → animate-pin-pulse / animate-dot-pulse */
+  --animate-pin-pulse: pin-pulse 2.4s ease-out infinite;
+  --animate-dot-pulse: dot-pulse 1.8s infinite;
+
+  @keyframes pin-pulse {
+    0% {
+      r: 6;
+      opacity: 0.5;
+    }
+    100% {
+      r: 28;
+      opacity: 0;
+    }
+  }
+
+  @keyframes dot-pulse {
+    0% {
+      box-shadow: 0 0 0 0 oklch(0.74 0.13 75 / 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 10px oklch(0.74 0.13 75 / 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 oklch(0.74 0.13 75 / 0);
+    }
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--rule);
+    outline-color: color-mix(in oklch, var(--gold) 50%, transparent);
+  }
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--gold);
+    color: var(--ink);
+  }
+}
+
+/* ————————————————————————————————————————————————
+   Striped placeholder image comps — intentional first-pass
+   slots with monospace captions (the designer's device for
+   "real photography drops in here"). Can't be expressed as
+   Tailwind utilities, so they live here and are applied by
+   the <Placeholder> primitive via the `.ph` class.
+   ———————————————————————————————————————————————— */
+@layer components {
+  .ph {
+    position: relative;
+    overflow: hidden;
+    color: var(--ink-2);
+    background:
+      repeating-linear-gradient(135deg, oklch(0.86 0.02 75) 0 1px, transparent 1px 9px),
+      linear-gradient(180deg, oklch(0.91 0.022 78), oklch(0.85 0.024 70));
+  }
+  .ph-dark {
+    color: oklch(0.88 0.02 75);
+    background:
+      repeating-linear-gradient(135deg, oklch(0.3 0.02 60) 0 1px, transparent 1px 9px),
+      linear-gradient(180deg, oklch(0.28 0.02 60), oklch(0.22 0.018 55));
+  }
+  .ph-gold {
+    color: oklch(0.25 0.05 60);
+    background:
+      repeating-linear-gradient(135deg, oklch(0.78 0.115 78) 0 1px, transparent 1px 9px),
+      linear-gradient(180deg, oklch(0.85 0.09 82), oklch(0.74 0.13 75));
+  }
+
+  /* —— Footprint map (§05): geometry CSS that can't be Tailwind utilities —— */
+  .map-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.45;
+    background-image:
+      linear-gradient(oklch(0.3 0.01 60) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.3 0.01 60) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .pin {
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .pin-ring {
+    fill: var(--gold);
+    opacity: 0.16;
+    transition: all 0.18s ease;
+  }
+  .pin-core {
+    fill: var(--gold);
+    transition: all 0.18s ease;
+  }
+  .pin:hover .pin-ring,
+  .pin.active .pin-ring {
+    opacity: 0.32;
+    r: 22;
+  }
+  .pin:hover .pin-core,
+  .pin.active .pin-core {
+    r: 7;
+  }
+  .pin-pulse {
+    fill: var(--gold);
+    opacity: 0.4;
+    animation: var(--animate-pin-pulse);
+  }
+  .map-label {
+    fill: oklch(0.85 0.02 75);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+}

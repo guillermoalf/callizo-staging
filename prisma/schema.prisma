@@ -1,0 +1,27 @@
+// Callizo — Prisma schema.
+// Using SQLite for frictionless local dev. To move to Postgres,
+// change `provider` to "postgresql" and point DATABASE_URL at it.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Sample / project-brief submissions from the contact form. This is the only
+// thing the homepage persists — section content lives in src/content as typed
+// data, not the DB.
+model SampleRequest {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  company   String
+  email     String
+  country   String // matches COUNTRY_ROUTES keys (MX, CR, CO, …)
+  interest  String // flavors | fragrances | pets | zoo | ingredients | other
+  message   String
+  routedTo  String // snapshot of resolved plant/lead at submit time
+  createdAt DateTime @default(now())
+}
