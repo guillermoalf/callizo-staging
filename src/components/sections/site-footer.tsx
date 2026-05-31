@@ -1,8 +1,47 @@
-import { Shell } from "@/components/ui/shell";
-import { FOOTER_COLUMNS, FOOTER_TAGLINE, FOOTER_CITIES, CERTIFICATIONS } from "@/content/site";
+"use client";
 
-// STUB — filled out in the section pass.
+import { Shell } from "@/components/ui/shell";
+import { CERTIFICATIONS } from "@/content/site";
+import { useLanguage } from "@/contexts/language-context";
+
+const LOCATIONS_COLUMN = [
+  "Heredia, CR · HQ",
+  "Alajuela, CR",
+  "Guadalajara, MX",
+  "Lima, PE",
+  "Itá, PY",
+  "Palestine, TX · US",
+  "Bogotá, CO",
+];
+
+const CONNECT_ITEMS = ["LinkedIn", "Instagram", "Newsletter", "info@callizoaromas.com"];
+
+const FOOTER_CITIES =
+  "HEREDIA · ALAJUELA · GUADALAJARA · LIMA · ITÁ · PALESTINE TX · BOGOTÁ";
+
 export function SiteFooter() {
+  const { t } = useLanguage();
+  const f = t.footer;
+
+  const columns = [
+    {
+      heading: f.col_divisions,
+      items: [f.div_flavors, f.div_fragrances, f.div_pets, f.div_zoo, f.div_ingredients],
+    },
+    {
+      heading: f.col_locations,
+      items: LOCATIONS_COLUMN,
+    },
+    {
+      heading: f.col_company,
+      items: [f.co_about, f.co_craft, f.co_sustainability, f.co_careers, f.co_press],
+    },
+    {
+      heading: f.col_connect,
+      items: CONNECT_ITEMS,
+    },
+  ];
+
   return (
     <footer className="border-t border-rule bg-paper pb-8 pt-20">
       <Shell>
@@ -13,10 +52,10 @@ export function SiteFooter() {
               <span>Callizo</span>
             </div>
             <div className="mt-3 font-serif text-[18px] italic text-gold-deep">
-              {FOOTER_TAGLINE}
+              {f.tagline}
             </div>
           </div>
-          {FOOTER_COLUMNS.map((col) => (
+          {columns.map((col) => (
             <div key={col.heading}>
               <h5 className="mb-[18px] font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3">
                 {col.heading}
@@ -33,7 +72,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-rule pt-7 font-mono text-[11px] tracking-[0.08em] text-ink-3">
-          <span>© 1995–2026 CALLIZO AROMAS · ALL RIGHTS RESERVED</span>
+          <span>{f.copyright}</span>
           <div className="flex flex-wrap items-center gap-[22px]">
             {CERTIFICATIONS.map((c) => (
               <span key={c} className="font-serif text-sm italic text-ink-2">

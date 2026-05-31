@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Section, Shell } from "@/components/ui/shell";
 import { SectionHead } from "@/components/ui/section-head";
 import { LOCATIONS, HQ_ID } from "@/content/locations";
+import { useLanguage } from "@/contexts/language-context";
 
 /* Hand-authored, recognizable (simplified) Americas silhouette in a 600×720
    viewBox — North America tapering through Mexico, a thin Central-American
@@ -25,6 +26,8 @@ const CARIBBEAN = [
 ];
 
 export function FootprintMap() {
+  const { t } = useLanguage();
+  const m = t.map;
   const [active, setActive] = useState(HQ_ID);
   const hq = LOCATIONS.find((l) => l.id === HQ_ID)!;
   const cur = LOCATIONS.find((l) => l.id === active) ?? hq;
@@ -34,10 +37,16 @@ export function FootprintMap() {
       <Shell>
         <SectionHead
           tone="dark"
-          num={<><b>05 / 07</b> &nbsp;·&nbsp; Global presence</>}
-          eyebrow="Americas · 6 plants · 3 offices"
-          title={<>One continent.<br />One <em>local</em> team for each of you.</>}
-          side="Every inquiry routes to a plant in your time zone — not a shared inbox in another hemisphere."
+          num={m.section_label}
+          eyebrow={m.eyebrow}
+          title={
+            <>
+              {m.title_1}
+              <br />
+              <em>{m.title_2}</em>
+            </>
+          }
+          side={m.side}
         />
 
         <div className="grid border border-[oklch(0.32_0.01_60)] lg:grid-cols-[1.4fr_1fr]">
@@ -112,16 +121,26 @@ export function FootprintMap() {
           </div>
 
           {/* —— side panel —— */}
-          <div className="flex flex-col bg-[oklch(0.205_0.012_60)] px-9 pb-7 pt-9">
+          <div className="flex flex-col overflow-hidden bg-[oklch(0.205_0.012_60)] px-9 pb-7 pt-9">
             <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[oklch(0.65_0.01_65)]">
-              Selected location
+              {m.selected_location}
             </span>
             <div className="mt-1 font-serif text-[28px] leading-[1.05] text-[oklch(0.94_0.02_75)]">
               {cur.city}, {cur.country}
             </div>
             <div className="text-[13px] text-[oklch(0.65_0.01_65)]">{cur.type}</div>
+            {cur.address && (
+              <div className="mt-1 line-clamp-2 text-[12px] leading-[1.4] text-[oklch(0.55_0.01_65)]">
+                {cur.address}
+              </div>
+            )}
+            {cur.phone && (
+              <div className="mt-1 font-mono text-[11px] tracking-[0.04em] text-[oklch(0.62_0.01_65)]">
+                {cur.phone}
+              </div>
+            )}
 
-            <div className="mt-6 flex-1">
+            <div className="mt-6 min-h-0 flex-1 overflow-y-auto">
               {LOCATIONS.map((l) => {
                 const on = active === l.id;
                 return (
@@ -149,7 +168,7 @@ export function FootprintMap() {
                       </span>
                     </div>
                     <div className="font-mono text-[11px] tracking-[0.08em] text-[oklch(0.62_0.01_65)]">
-                      {l.country.toUpperCase().slice(0, 3)}
+                      {l.countryCode}
                     </div>
                   </div>
                 );
@@ -158,10 +177,10 @@ export function FootprintMap() {
 
             <div className="mt-[18px] flex gap-6 font-mono text-[11px] tracking-[0.06em] text-[oklch(0.62_0.01_65)]">
               <span className="flex items-center gap-2">
-                <span className="size-2 rounded-full bg-gold" /> Plant
+                <span className="size-2 rounded-full bg-gold" /> {m.plant}
               </span>
               <span className="flex items-center gap-2">
-                <span className="size-2 rounded-full border border-gold" /> Sales office
+                <span className="size-2 rounded-full border border-gold" /> {m.sales_office}
               </span>
             </div>
           </div>

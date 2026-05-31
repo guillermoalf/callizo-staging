@@ -113,6 +113,9 @@
     border-color: var(--rule);
     outline-color: color-mix(in oklch, var(--gold) 50%, transparent);
   }
+  html {
+    scroll-behavior: smooth;
+  }
   html,
   body {
     margin: 0;
@@ -131,6 +134,46 @@
   ::selection {
     background: var(--gold);
     color: var(--ink);
+  }
+}
+
+/* ————————————————————————————————————————————————
+   Print: show only the ficha modal, hide everything else.
+   The modal is rendered into document.body via a React portal
+   (.ficha-modal-root), so we can hide all sibling body children
+   with display:none — they take zero space, no repeated pages.
+   position:fixed is NOT used here (fixed repeats on every page).
+   ———————————————————————————————————————————————— */
+@media print {
+  /* Collapse all page content; the portal div stays visible */
+  body > *:not(.ficha-modal-root) { display: none !important; }
+
+  /* Flatten the overlay so it no longer positions or tints */
+  .ficha-overlay {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* Print-friendly panel: static flow, no clipping, no chrome */
+  .ficha-print {
+    position: static !important;
+    max-height: none !important;
+    max-width: none !important;
+    width: 100% !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
+    border: none !important;
+    padding: 40px !important;
+    background: white !important;
+  }
+
+  /* Remove overflow clipping on the scrollable inner div */
+  .ficha-print > * {
+    overflow: visible !important;
+    max-height: none !important;
   }
 }
 

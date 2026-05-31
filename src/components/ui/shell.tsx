@@ -38,7 +38,7 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "relative border-t border-rule py-[110px]",
+        "relative border-t border-rule py-[110px] scroll-mt-[80px]",
         tone === "dark" && "bg-ink text-[oklch(0.92_0.012_75)]",
         className,
       )}

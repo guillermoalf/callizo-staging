@@ -1,16 +1,27 @@
+"use client";
+
 import { Section, Shell } from "@/components/ui/shell";
 import { SectionHead } from "@/components/ui/section-head";
+import { useLanguage } from "@/contexts/language-context";
 
-// STUB — pillars + certifications built in the section pass.
 export function WhyCallizo() {
+  const { t } = useLanguage();
+  const w = t.why;
+
   return (
     <Section id="why" anno="§ 04 / CAPABILITIES">
       <Shell>
         <SectionHead
-          num={<><b>04 / 07</b> &nbsp;·&nbsp; Why Callizo</>}
-          eyebrow="Credibility pillars"
-          title={<>Built like a multinational.<br />Run like a <em>family.</em></>}
-          side="What thirty years of sourcing, formulating and shipping inside the Americas adds up to — and why R&D directors at CPG companies keep our number."
+          num={w.section_label}
+          eyebrow={w.eyebrow}
+          title={
+            <>
+              {w.title_1}
+              <br />
+              <em>{w.title_2}</em>
+            </>
+          }
+          side={w.side}
         />
       </Shell>
     </Section>

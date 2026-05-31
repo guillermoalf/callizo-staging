@@ -1,16 +1,27 @@
+"use client";
+
 import { Section, Shell } from "@/components/ui/shell";
 import { SectionHead } from "@/components/ui/section-head";
+import { useLanguage } from "@/contexts/language-context";
 
-// STUB — article cards built in the section pass.
 export function Resources() {
+  const { t } = useLanguage();
+  const r = t.resources;
+
   return (
     <Section id="resources" anno="§ 06 / INSIGHTS">
       <Shell>
         <SectionHead
-          num={<><b>06 / 07</b> &nbsp;·&nbsp; Resources</>}
-          eyebrow="Notes from the lab"
-          title={<>Field notes from <em>the bench.</em></>}
-          side="Application notes, sustainability reports, regulatory briefs and the occasional thinking-out-loud from our formulators."
+          num={r.section_label}
+          eyebrow={r.eyebrow}
+          title={
+            <>
+              {r.title_1}
+              <br />
+              <em>{r.title_2}</em>
+            </>
+          }
+          side={r.side}
         />
       </Shell>
     </Section>

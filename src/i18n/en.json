@@ -1,0 +1,141 @@
+{
+  "nav": {
+    "catalog": "Catalog",
+    "divisions": "Divisions",
+    "capabilities": "Capabilities",
+    "locations": "Locations",
+    "insights": "Insights",
+    "contact": "Contact",
+    "cta": "Request Quote"
+  },
+  "hero": {
+    "eyebrow": "Somos Alquimistas Sensoriales",
+    "line1": "We craft",
+    "line2": "the sensations",
+    "line3": "of flavor, scent",
+    "line4": "& color.",
+    "subtitle": "For thirty years, a family-run partner to CPG manufacturers across the Americas — building custom sensory systems with the rigor of a global supplier and the responsiveness of a regional one.",
+    "cta_primary": "Request Quote",
+    "cta_secondary": "Talk to our team",
+    "stat_years_n": "30+",
+    "stat_years_l": "years building sensory systems for the Americas",
+    "stat_centers_n": "6",
+    "stat_centers_l": "manufacturing & R&D centers across the continent",
+    "stat_refs_n": "500+",
+    "stat_refs_l": "active flavor, fragrance & ingredient references",
+    "stat_dispatch_n": "48h",
+    "stat_dispatch_l": "average sample dispatch from regional lab to client"
+  },
+  "catalog": {
+    "section_label": "The Catalog",
+    "eyebrow": "Search · filter · quote",
+    "title_1": "Five hundred ingredients,",
+    "title_2": "one search bar.",
+    "side": "Built so an R&D manager can find a maracuyá top-note at 11pm and request a quote before the cafeteria closes.",
+    "all": "All",
+    "request_quote": "Request Quote",
+    "modal_title": "Request Quote",
+    "field_product": "Product",
+    "field_company": "Company name",
+    "field_contact": "Contact name",
+    "field_email": "Email address",
+    "field_country": "Country",
+    "field_volume": "Estimated monthly volume (kg)",
+    "field_notes": "Additional notes",
+    "notes_placeholder": "Applications, desired presentation, purity range, etc.",
+    "select_country": "Select country",
+    "submit": "Send request",
+    "success_title": "Request sent!",
+    "success_body": "We'll get back to you shortly.",
+    "close": "Close"
+  },
+  "why": {
+    "section_label": "Why Callizo",
+    "eyebrow": "Credibility pillars",
+    "title_1": "Built like a multinational.",
+    "title_2": "Run like a family.",
+    "side": "What thirty years of sourcing, formulating and shipping inside the Americas adds up to — and why R&D directors at CPG companies keep our number."
+  },
+  "map": {
+    "section_label": "Global presence",
+    "eyebrow": "Americas · 6 plants · 5 offices",
+    "title_1": "One continent.",
+    "title_2": "One local team for each of you.",
+    "side": "Every inquiry routes to a plant in your time zone — not a shared inbox in another hemisphere.",
+    "selected_location": "Selected location",
+    "plant": "Plant",
+    "sales_office": "Sales office"
+  },
+  "resources": {
+    "section_label": "Resources",
+    "eyebrow": "Notes from the lab",
+    "title_1": "Field notes from",
+    "title_2": "the bench.",
+    "side": "Application notes, sustainability reports, regulatory briefs and the occasional thinking-out-loud from our formulators."
+  },
+  "pets": {
+    "division_label": "Division 03 — Pets & Palatability",
+    "headline_1": "Palatability systems that",
+    "headline_2": "pets actually choose."
+  },
+  "contact": {
+    "eyebrow": "Begin a project · request samples · book a lab visit",
+    "headline_1": "Tell us what you're",
+    "headline_2": "working on."
+  },
+  "division_labels": {
+    "flavors": "Flavors",
+    "fragrances": "Fragrances",
+    "pets": "Pets",
+    "zoo": "Zootechnics",
+    "ingredients": "Ingredients"
+  },
+  "footer": {
+    "tagline": "Somos Alquimistas Sensoriales.",
+    "copyright": "© 1993–2026 CALLIZO AROMAS · ALL RIGHTS RESERVED",
+    "col_divisions": "Divisions",
+    "col_locations": "Locations",
+    "col_company": "Company",
+    "col_connect": "Connect",
+    "div_flavors": "Flavors",
+    "div_fragrances": "Fragrances",
+    "div_pets": "Pets & palatability",
+    "div_zoo": "Zootechnics",
+    "div_ingredients": "Ingredients",
+    "co_about": "About Callizo",
+    "co_craft": "Our craft",
+    "co_sustainability": "Sustainability",
+    "co_careers": "Careers",
+    "co_press": "Press"
+  },
+  "ficha": {
+    "title": "Technical Data Sheet",
+    "descripcion": "General description",
+    "specs": "Technical specifications",
+    "aplicaciones": "Recommended applications",
+    "certificaciones": "Certifications",
+    "descargar": "Download data sheet",
+    "cotizar": "Request Quote",
+    "tipo": "Type",
+    "presentacion": "Presentation",
+    "dosis": "Recommended dose",
+    "ph": "Application pH",
+    "temp": "Maximum temperature",
+    "solubilidad": "Solubility",
+    "vidaUtil": "Shelf life",
+    "almacenamiento": "Storage"
+  },
+  "countries": [
+    "Costa Rica",
+    "México",
+    "Perú",
+    "Colombia",
+    "Paraguay",
+    "United States",
+    "Ecuador",
+    "Guatemala",
+    "Bolivia",
+    "Venezuela",
+    "Other"
+  ]
+}

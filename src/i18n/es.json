@@ -1,0 +1,141 @@
+{
+  "nav": {
+    "catalog": "Catálogo",
+    "divisions": "Divisiones",
+    "capabilities": "Capacidades",
+    "locations": "Ubicaciones",
+    "insights": "Perspectivas",
+    "contact": "Contacto",
+    "cta": "Solicitar Cotización"
+  },
+  "hero": {
+    "eyebrow": "Somos Alquimistas Sensoriales",
+    "line1": "Creamos",
+    "line2": "las sensaciones",
+    "line3": "de sabor, aroma",
+    "line4": "y color.",
+    "subtitle": "Por treinta años, socio familiar de fabricantes de CPG en las Américas — construyendo sistemas sensoriales con el rigor de un proveedor global y la capacidad de respuesta de uno regional.",
+    "cta_primary": "Solicitar Cotización",
+    "cta_secondary": "Hablar con nuestro equipo",
+    "stat_years_n": "30+",
+    "stat_years_l": "años construyendo sistemas sensoriales para las Américas",
+    "stat_centers_n": "6",
+    "stat_centers_l": "centros de manufactura e I+D en el continente",
+    "stat_refs_n": "500+",
+    "stat_refs_l": "referencias activas de sabores, fragancias e ingredientes",
+    "stat_dispatch_n": "48h",
+    "stat_dispatch_l": "despacho promedio de muestra de lab regional a cliente"
+  },
+  "catalog": {
+    "section_label": "El Catálogo",
+    "eyebrow": "Buscar · filtrar · cotizar",
+    "title_1": "Quinientos ingredientes,",
+    "title_2": "una sola búsqueda.",
+    "side": "Diseñado para que un gerente de I+D encuentre un top-note de maracuyá a las 11pm y solicite una cotización antes de que cierre la cafetería.",
+    "all": "Todos",
+    "request_quote": "Solicitar Cotización",
+    "modal_title": "Solicitar Cotización",
+    "field_product": "Producto",
+    "field_company": "Empresa",
+    "field_contact": "Nombre de contacto",
+    "field_email": "Correo electrónico",
+    "field_country": "País",
+    "field_volume": "Volumen mensual estimado (kg)",
+    "field_notes": "Notas adicionales",
+    "notes_placeholder": "Aplicaciones, presentación deseada, rango de pureza, etc.",
+    "select_country": "Seleccionar país",
+    "submit": "Enviar solicitud",
+    "success_title": "¡Solicitud enviada!",
+    "success_body": "Nos pondremos en contacto contigo pronto.",
+    "close": "Cerrar"
+  },
+  "why": {
+    "section_label": "Por qué Callizo",
+    "eyebrow": "Pilares de credibilidad",
+    "title_1": "Construido como multinacional.",
+    "title_2": "Manejado como familia.",
+    "side": "Lo que treinta años de abastecimiento, formulación y envíos en las Américas suman — y por qué los directores de I+D de empresas de CPG nos tienen en marcación rápida."
+  },
+  "map": {
+    "section_label": "Presencia global",
+    "eyebrow": "Américas · 6 plantas · 5 oficinas",
+    "title_1": "Un continente.",
+    "title_2": "Un equipo local para cada uno de ustedes.",
+    "side": "Cada consulta se dirige a una planta en tu zona horaria — no a una bandeja de entrada compartida en otro hemisferio.",
+    "selected_location": "Ubicación seleccionada",
+    "plant": "Planta",
+    "sales_office": "Oficina de ventas"
+  },
+  "resources": {
+    "section_label": "Recursos",
+    "eyebrow": "Notas del laboratorio",
+    "title_1": "Notas de campo",
+    "title_2": "del banco.",
+    "side": "Notas de aplicación, reportes de sostenibilidad, informes regulatorios y reflexiones de nuestros formuladores."
+  },
+  "pets": {
+    "division_label": "División 03 — Mascotas y Palatabilidad",
+    "headline_1": "Sistemas de palatabilidad",
+    "headline_2": "que las mascotas realmente eligen."
+  },
+  "contact": {
+    "eyebrow": "Iniciar un proyecto · solicitar muestras · agendar una visita al laboratorio",
+    "headline_1": "Cuéntanos en qué",
+    "headline_2": "estás trabajando."
+  },
+  "division_labels": {
+    "flavors": "Sabores",
+    "fragrances": "Fragancias",
+    "pets": "Mascotas",
+    "zoo": "Zootecnia",
+    "ingredients": "Ingredientes"
+  },
+  "footer": {
+    "tagline": "Somos Alquimistas Sensoriales.",
+    "copyright": "© 1993–2026 CALLIZO AROMAS · TODOS LOS DERECHOS RESERVADOS",
+    "col_divisions": "Divisiones",
+    "col_locations": "Ubicaciones",
+    "col_company": "Empresa",
+    "col_connect": "Conectar",
+    "div_flavors": "Sabores",
+    "div_fragrances": "Fragancias",
+    "div_pets": "Mascotas y palatabilidad",
+    "div_zoo": "Zootecnia",
+    "div_ingredients": "Ingredientes",
+    "co_about": "Acerca de Callizo",
+    "co_craft": "Nuestro oficio",
+    "co_sustainability": "Sostenibilidad",
+    "co_careers": "Empleos",
+    "co_press": "Prensa"
+  },
+  "ficha": {
+    "title": "Ficha Técnica",
+    "descripcion": "Descripción general",
+    "specs": "Especificaciones técnicas",
+    "aplicaciones": "Aplicaciones recomendadas",
+    "certificaciones": "Certificaciones",
+    "descargar": "Descargar ficha técnica",
+    "cotizar": "Solicitar Cotización",
+    "tipo": "Tipo",
+    "presentacion": "Presentación",
+    "dosis": "Dosis recomendada",
+    "ph": "pH de aplicación",
+    "temp": "Temperatura máxima",
+    "solubilidad": "Solubilidad",
+    "vidaUtil": "Vida útil",
+    "almacenamiento": "Almacenamiento"
+  },
+  "countries": [
+    "Costa Rica",
+    "México",
+    "Perú",
+    "Colombia",
+    "Paraguay",
+    "Estados Unidos",
+    "Ecuador",
+    "Guatemala",
+    "Bolivia",
+    "Venezuela",
+    "Otro"
+  ]
+}

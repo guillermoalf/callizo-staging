@@ -7,7 +7,7 @@ export const NAV_LINKS = [
   { href: "#contact", label: "Contact" },
 ];
 
-export const LANGUAGES = ["EN", "ES", "PT"] as const;
+export const LANGUAGES = ["ES", "EN"] as const;
 
 /** Hero stat strip: [value, label]. */
 export const HERO_STATS: [string, string][] = [

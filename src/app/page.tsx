@@ -1,3 +1,4 @@
+import { LanguageProvider } from "@/contexts/language-context";
 import { SiteNav } from "@/components/sections/site-nav";
 import { Hero } from "@/components/sections/hero";
 import { CatalogPreview } from "@/components/sections/catalog-preview";
@@ -10,7 +11,7 @@ import { SiteFooter } from "@/components/sections/site-footer";
 
 export default function Home() {
   return (
-    <>
+    <LanguageProvider>
       <SiteNav />
       <Hero />
       <CatalogPreview />
@@ -20,6 +21,6 @@ export default function Home() {
       <Resources />
       <ContactForm />
       <SiteFooter />
-    </>
+    </LanguageProvider>
   );
 }
