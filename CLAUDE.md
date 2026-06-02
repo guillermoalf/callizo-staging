@@ -1,134 +1,193 @@
-# Callizo
+# CLAUDE.md — Callizo.OS Project Instructions
 
-A web app being built to **pitch to a potential client** (Callizo Aromas — a
-family-run sensory-ingredients company in the Americas). Two surfaces:
+## Project Overview
+Callizo.OS is a CRM and business intelligence platform built as a pitch demo for Callizo Aromas — a B2B Latin American flavor, fragrance, and ingredient manufacturer operating in 10 countries since 1993. The goal is to show the client the potential of a fully digitized operation: CRM, analytics, invoicing, quotations, leads, ecommerce, and AI assistant.
 
-- **Marketing homepage** (`/`) — a long-scroll, design-led landing page.
-  Warm editorial look: paper/ink/gold, Instrument Serif + Manrope + JetBrains
-  Mono. Built section by section under `src/components/sections/`.
-- **Admin dashboard** (`/admin`, "Callizo.OS") — a Spanish-language back-office
-  demo (Dashboard, CRM, Pipeline, Productos & I+D, Órdenes, Asistente IA).
-  Distinct light-SaaS look: Inter + gray/blue/purple/amber. Lives under
-  `src/app/admin/` and `src/components/admin/`.
+This is a React application. All agents must follow these instructions before making any changes.
 
-The two are **deliberately different design systems** — don't bleed one into the
-other (see Tokens below).
+---
 
-## Stack
+## Tech Stack
+- **Frontend:** React + Vite
+- **Styling:** Tailwind CSS
+- **Charts:** Chart.js via react-chartjs-2
+- **Icons:** Tabler Icons (outline only, never filled)
+- **Routing:** React Router v6
+- **State management:** Zustand
+- **Language:** TypeScript
+- **Backend (future):** Node.js + Express
+- **Database (future):** PostgreSQL
+- **AI integration (future):** Anthropic API (claude-sonnet-4-20250514)
 
-Single Next.js app — **not** a monorepo (no `apps/`, `services/`, `libs/`).
+---
 
-- Next.js 15.4 (App Router, Turbopack dev) · React 19 · TypeScript 5.9
-- Tailwind **v4** + design tokens in `src/app/globals.css`
-- Prisma 6 on **SQLite** (`prisma/dev.db`, `DATABASE_URL` in `.env`)
-- recharts (admin charts) · lucide-react (icons) · sonner · framer-motion
-- cva · clsx · tailwind-merge (`cn()` in `src/lib/utils.ts`)
-
-Commands: `yarn dev` · `yarn db:push` · `yarn lint` · `yarn build`.
-(`yarn build` runs `prisma generate` first.) Dev often lands on **:3001** when
-:3000 is taken — check the dev log for the actual URL.
-
-## Layout
-
-```
+## Project Structure
 src/
-  app/
-    layout.tsx          ← marketing fonts (Instrument Serif/Manrope/JetBrains) + Toaster
-    page.tsx            ← marketing homepage, composes <sections/>
-    globals.css         ← Tailwind v4 + ALL design tokens (marketing + admin)
-    actions.ts          ← "use server" — submitSampleRequest (the only DB write)
-    admin/
-      layout.tsx        ← admin shell: Inter + sidebar + topbar; nested routes
-      page.tsx          ← Dashboard; crm/ pipeline/ products/ orders/ ai/ are sub-routes
-  components/
-    ui/                 ← marketing primitives (Button, Shell/Section, Placeholder, …)
-    sections/           ← one file per homepage section
-    admin/              ← admin shell + primitives (Kpi, Card, Pill, charts, icon map)
-    icons.tsx           ← marketing SVG marks (Arrow, glyphs)
-  content/              ← typed static content modules (see below)
-    admin/              ← admin mock data
-  lib/                  ← prisma.ts (client singleton) + utils.ts (cn)
-prisma/schema.prisma    ← SampleRequest model (SQLite)
-reference/              ← designer mockups (bundled HTML) — see "Working from references"
-```
+components/        # Reusable UI components (Button, Pill, Avatar, Card, KpiCard)
+views/             # One file per dashboard view/page
+layouts/           # Sidebar, Topbar, AppShell
+data/              # Fake data files (JSON) — one per module
+hooks/             # Custom React hooks
+store/             # Zustand stores — one per module
+i18n/              # Language files: es.json (default), en.json
+types/             # TypeScript interfaces
+utils/             # Formatters, risk score calculator, date helpers
 
-## Conventions
+---
 
-### Tailwind v4 — the `var()` footgun
-CSS-var arbitrary values **must** wrap the var in `var()`. Write
-`bg-[oklch(0.92_0.045_var(--hue))]` and `w-[var(--x)]` — **never** `w-[--x]` or
-`bg-[--hue]`. The v3 bare-`--x` form silently no-ops in v4. This has bitten this
-exact stack before; treat it as a hard rule.
+## Design System — Non-negotiable rules
 
-### Utility-first, with a thin escape hatch
-Build with Tailwind utilities. Tokens are registered in `@theme` in
-`globals.css` so they resolve as utilities (`bg-paper`, `text-ink`, `text-gold`;
-admin: `bg-admin-bg`, `text-admin-gray-500`, …). Only put CSS in `globals.css`
-when a thing genuinely can't be a utility — and keep it scoped/labelled. Current
-precedents: striped placeholder backgrounds (`.ph`), the footprint-map pin
-geometry + keyframes, and the admin scrollbar. Don't grow ad-hoc class soup.
+### Colors
+- Primary blue: `#378add`
+- Success green: `#1d9e75`
+- Warning amber: `#ba7517`
+- Purple (Zootecnia): `#7f77dd`
+- Danger red: `#e24b4a`
+- Logo accent: `#C8960C`
 
-### Two token namespaces — keep them apart
-Marketing tokens are plain (`--color-paper/ink/gold/rule`, `font-serif/sans/mono`).
-Admin tokens are **namespaced `admin-*`** (`--color-admin-blue`,
-`--color-admin-gray-500`, `--font-inter`, …) precisely so the dashboard can't
-recolour the marketing site. New admin styling uses `admin-*` utilities; new
-marketing styling uses the warm tokens. Don't reach across.
+### Pill classes (status badges)
+| Class | Background | Text | Use for |
+|-------|-----------|------|---------|
+| pill-green | #eaf3de | #3b6d11 | Active, Paid, Delivered |
+| pill-amber | #faeeda | #854f0b | Pending, Renewal, Warning |
+| pill-red | #fcebeb | #a32d2d | At Risk, Overdue, Lost |
+| pill-blue | #e6f1fb | #185fa5 | In Transit, Info, Sent |
+| pill-gray | #f1efe8 | #5f5e5a | Neutral, Draft |
+| pill-purple | #eeedfe | #3c3489 | Referral source |
 
-### Content is typed data, not the database
-Section/dashboard content lives as **typed TS modules** in `src/content/` (and
-`src/content/admin/`) — divisions, locations, clients, orders, etc. The DB
-(`prisma`) persists **only** real submissions (the contact form →
-`SampleRequest`). This is a pitch build; don't wire mock content to the DB
-unless asked. Admin copy is **Spanish on purpose** (the client's market).
+### Typography
+- Font: system sans-serif (Anthropic Sans in demo)
+- Headings: font-weight 500 only — never 600 or 700
+- Codes (invoice #, order #, SKU, quote #): always monospace font
+- All text: sentence case — never ALL CAPS or Title Case in UI
 
-### Keep logic out of UI files (the portable-logic rule, adapted)
-We have no workspace packages, but the spirit holds: anything reusable and
-framework-agnostic (formatters, data shaping, parsing) goes in its own module
-(`src/content/admin/format.ts`, a `src/lib/*` helper), **not** inlined in a
-component. `src/lib/` is for web glue — the Prisma singleton, the `cn` helper,
-server-action adapters, React/Next hooks. If a helper would make sense called
-from a script/export tool, give it a clean module so it stays reusable.
+### Cards & Layout
+- Cards: white background, 0.5px border, border-radius-lg (12px)
+- Metric cards: secondary background, no border, border-radius-md (8px)
+- Borders: always 0.5px — never 1px except featured item accent (2px blue)
+- No gradients, no drop shadows, no blur effects
+- Sidebar width: 210px fixed
 
-### File size & componentization
-Keep files small and focused (**≤ ~400 LOC**). When JSX gets big or markup
-repeats, extract a component — homepage sections to `components/sections/`,
-admin pieces to `components/admin/`, shared marketing primitives to
-`components/ui/`. Prefer small typed primitives (cva for variants) over
-one-off inline styling.
+### AI Insight Callout Component
+Always use this pattern for AI insights:
+- Background: #e6f1fb
+- Border: 0.5px solid #b5d4f4
+- Text color: #0c447c
+- Icon: ti-sparkles (Tabler)
+- Border radius: border-radius-md
 
-### Charts (admin) & icons
-- Charts use **recharts**; set `isAnimationActive={false}` so they render
-  deterministically (the enter-animation otherwise shows empty in SSR/headless
-  screenshots). Tooltip `formatter` params are recharts' `ValueType` — don't
-  annotate them `: number`, coerce inside (`Number(value)`).
-- Icons use **lucide-react**. The admin maps the reference's Tabler names →
-  lucide via `src/components/admin/icon.tsx`; data modules store icon **keys**,
-  components resolve them. Add new mappings there.
+---
 
-## Working from references
+## Divisions & Product Codes
+Callizo has 5 divisions. Always use these when generating fake data:
+- **Sabores** — product codes: SAB-XXXX
+- **Fragancias** — product codes: FRG-XXXX
+- **Mascotas** — product codes: PET-XXXX
+- **Zootecnia** — product codes: ZOO-XXXX
+- **Ingredientes** — product codes: ING-XXXX
 
-The designer delivers mockups as **self-unpacking bundled HTML** in
-`reference/` (a base64+gzip `__bundler/manifest` + a JSON `__bundler/template`;
-the real markup is React/JSX inside, sometimes in external `text/babel` assets).
-To read one: decode the template/assets with a short `node` script (`JSON.parse`
-the template, `zlib.gunzipSync` manifest entries), write scratch `_*` files to
-inspect, **then delete the scratch files** when done. These bundles are large
-(1–6 MB) — never `Read` them whole; extract structure first.
+---
 
-When porting a mockup: agree the data model + structure before building, then
-build incrementally and **verify visually** — `yarn dev`, screenshot with
-headless Chrome, crop with `magick` to inspect, iterate. (Charts/maps especially
-need a screenshot loop.)
+## Countries of Operation
+Always use these when generating fake data. Include country flag emoji.
+| Country | Flag | Operation type |
+|---------|------|---------------|
+| Costa Rica | 🇨🇷 | Sales, R&D, Manufacturing — HQ |
+| México | 🇲🇽 | Sales, R&D, Manufacturing |
+| Perú | 🇵🇪 | Sales, R&D, Manufacturing |
+| Colombia | 🇨🇴 | Sales, Manufacturing (Pets) |
+| Paraguay | 🇵🇾 | Sales, R&D, Manufacturing |
+| Estados Unidos | 🇺🇸 | Sales, R&D, Manufacturing |
+| Ecuador | 🇪🇨 | Sales only |
+| Guatemala | 🇬🇹 | Sales only |
+| Bolivia | 🇧🇴 | Sales only |
+| Venezuela | 🇻🇪 | Sales only |
 
-## Git
+---
 
-**Never** `git commit`, `push`, `gh pr create`, amend, force-push, or rebase
-without an explicit go-ahead from the user — surface the staged diff + proposed
-message and wait. (Mirrors the user's global rule.)
+## Fake Data Rules
+All fake data must be realistic for a B2B flavor/fragrance company with:
+- ~$8.4M USD annual revenue (YTD in 2026)
+- 347 active clients
+- 10 countries
+- Clients include: Nestlé, Bimbo, Alicorp, Arcor, Grupo Nutresa, Grupo Rey, Indulac, LaLa, P&G, Belcorp, Mars Petcare, Gruma, Purina, Unilever
+- Revenue breakdown: Sabores 38%, Fragancias 28%, Mascotas 20%, Zootecnia 14%
+- All monetary values in USD
+- All dates in 2026
 
-## Sub-docs
+---
 
-None yet — it's a single app. If `/admin` or the homepage grows enough to need
-their own layout/file-size rules, add a scoped `CLAUDE.md` in that route segment
-rather than bloating this one.
+## Risk Score Engine
+Every client has a computed risk score (0–100). This is core business logic — never change the weights without a specific task.
+
+| Factor | Points |
+|--------|--------|
+| No order in 60+ days | +30 |
+| Orders down 40%+ vs historical avg | +20 |
+| Unpaid invoices >30 days overdue | +20 |
+| Contract renewal in <45 days, no engagement | +30 |
+| No sales contact logged in 30+ days | +10 |
+
+Score thresholds:
+- 0–30: Active (green)
+- 31–65: Up for renewal (amber)
+- 66–100: At risk (red)
+
+Risk score must be recalculated in the Zustand store, not hardcoded per client.
+
+---
+
+## Internationalization (i18n)
+- Default language: **Spanish (es)**
+- Second language: **English (en)**
+- Toggle in the navbar — flag icon + language code
+- All UI strings must use i18n keys — never hardcode Spanish or English text in components
+- Date format: DD MMM YYYY (e.g. "12 may 2026") in Spanish, "May 12, 2026" in English
+- Currency: always USD with $ prefix
+
+---
+
+## Modules & Views
+Each view lives in `src/views/`. Current modules:
+
+| View file | Sidebar label | Section |
+|-----------|--------------|---------|
+| Dashboard.tsx | Dashboard | Principal |
+| Clients.tsx | Clientes | Principal |
+| Inactive.tsx | Inactivos | Principal |
+| PurchaseHistory.tsx | Historial de compras | Principal |
+| Pipeline.tsx | Pipeline | Ventas |
+| Quotations.tsx | Cotizaciones | Ventas |
+| Leads.tsx | Leads | Ventas |
+| Invoices.tsx | Facturas | Finanzas |
+| Products.tsx | Productos | Operaciones |
+| Orders.tsx | Pedidos | Operaciones |
+| AIAssistant.tsx | Asistente IA | Operaciones |
+| Landing.tsx | — | Public (no sidebar) |
+
+---
+
+## Landing Page Rules
+- Bilingual: Spanish default, English toggle
+- Smooth scroll on navbar link clicks
+- CTA button: "Solicitar cotización" (not "Request sample")
+- Sections: Hero, Divisions (Sabores/Fragancias/Mascotas/Zootecnia/Ingredientes), Products catalog with quote request, About, Locations, Contact
+- Product catalog must show real SKUs and allow visitors to request a quote per product
+- No ecommerce checkout yet — quote request only (form → email or CRM lead)
+
+## PR Rules for Agents
+- Branch naming: `feature/module-name` or `fix/description`
+- PR title format: `[Module] Short description of change`
+- PR description must include: what changed, which views are affected, any new fake data added
+- Never modify `src/data/` files without explicit instruction
+- Never change the Risk Score weights without a task that specifically says so
+- Always run `npm run lint` before committing
+- One concern per PR — never mix unrelated changes
+
+---
+
+## Current Sprint Priority
+1. Landing page (bilingual, smooth scroll, Solicitar cotización CTA, product catalog)
+2. AI Chat integration (Anthropic API, context-aware responses using current view data)
+3. Ecommerce quote request flow (product → quote form → lead created in CRM)
+4. Real backend + database connection

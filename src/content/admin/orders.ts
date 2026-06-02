@@ -1,4 +1,4 @@
-export type OrderStatus = "transit" | "production" | "delayed" | "hold" | "approval";
+export type OrderStatus = "transit" | "production" | "delayed" | "hold" | "approval" | "delivered";
 
 export type Order = {
   id: string;
@@ -18,7 +18,8 @@ export const ORDER_STATUS_META: Record<
   production: { label: "En producción", cls: "purple", icon: "building-factory-2" },
   delayed: { label: "Retrasada", cls: "red", icon: "alert-triangle" },
   hold: { label: "Calidad — hold", cls: "amber", icon: "shield-half" },
-  approval: { label: "Pend. aprobación", cls: "gray", icon: "clock-pause" },
+  approval:  { label: "Pend. aprobación", cls: "gray",  icon: "clock-pause" },
+  delivered: { label: "Entregada",        cls: "green", icon: "circle-check" },
 };
 
 export const ORDERS: Order[] = [
