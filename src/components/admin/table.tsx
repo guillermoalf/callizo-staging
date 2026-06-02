@@ -34,15 +34,18 @@ export function Th({
 export function Td({
   className,
   colSpan,
+  onClick,
   children,
 }: {
   className?: string;
   colSpan?: number;
+  onClick?: React.MouseEventHandler<HTMLTableCellElement>;
   children?: React.ReactNode;
 }) {
   return (
     <td
       colSpan={colSpan}
+      onClick={onClick}
       className={cn(
         "border-b-[0.5px] border-admin-border px-3.5 py-3 align-middle",
         className,
